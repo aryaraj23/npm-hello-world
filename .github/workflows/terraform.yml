@@ -21,6 +21,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
               cd /root/hello-world
-              git pull origin main
+              git config --global --unset credential.helper || true
+              git pull git@github.com:aryaraj23/npm-hello-world.git main
+              npm install
               pkill node || true
-              nohup node app.js &
+              nohup node app.js > app.log 2>&1 &
